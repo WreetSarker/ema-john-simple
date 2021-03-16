@@ -11,10 +11,17 @@ import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import Shipment from './components/Shipment/Shipment';
+import Login from './components/Login/Login';
+import { createContext, useState } from 'react';
+
+
+export const UserContext = createContext();
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-    <div >
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Header></Header>
       <Router>
         <Switch>
@@ -27,6 +34,12 @@ function App() {
           <Route path="/inventory">
             <Inventory></Inventory>
           </Route>
+          <Route path="/shipment">
+            <Shipment></Shipment>
+          </Route>
+          <Route path="/login">
+            <Login></Login>
+          </Route>
           <Route exact path="/">
             <Shop></Shop>
           </Route>
@@ -38,7 +51,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </UserContext.Provider>
   );
 }
 
